@@ -16,9 +16,21 @@ public class Utility {
 		LyyraCardDB.createCard(PersonDB.getPerson(0), "Morning");
 		LyyraCardDB.createCard(PersonDB.getPerson(0), "Evening");
 		LyyraCardDB.createCard(PersonDB.getPerson(1), "Personal Card");
-		LyyraCardDB.getCard(0).loadMoney(30);
-		LyyraCardDB.getCard(1).loadMoney(80);
-		LyyraCardDB.getCard(2).loadMoney(25);
+		LyyraCardDB.getCard(0).loadMoney(39);
+		LyyraCardDB.getCard(1).loadMoney(33);
+		LyyraCardDB.getCard(2).loadMoney(28);
+		MenuDB.createDish("Caesar Salad", 1, 2.20);
+		MenuDB.createDish("Tomato soup", 1, 2.10);
+		MenuDB.createDish("Ramen noodle soup", 1, 4.30);
+		MenuDB.createDish("Fried eggs with chips", 2, 3.80);
+		MenuDB.createDish("Veggie Burger with chips", 2, 4.50);
+		MenuDB.createDish("Grilled vegetables with allioli", 2, 3.20);
+		MenuDB.createDish("Tiramisu", 3, 2.80);
+		MenuDB.createDish("Lemon icecream", 3, 2.80);
+		MenuDB.createDish("Watermelon", 3, 1.20);
+		MenuDB.createDish("Tap water", 4, 0.00);
+		MenuDB.createDish("Orange juice", 4, 1.60);
+		MenuDB.createDish("Pineapple juice", 4, 1.60);
 	}
 
 	// OPTIONS
@@ -28,9 +40,9 @@ public class Utility {
 			Person user = chooseUser(reader);
 			LyyraCard target = chooseCard(user, reader);
 			while (true) {
-				double amount = 2.5;
-				if (target.enoughMoney(amount)) {
-					target.payMoney(amount);
+				double menuPrice = 2.5;
+				if (target.enoughMoney(menuPrice)) {
+					target.payMoney(menuPrice);
 					System.out.println("Operation completed.");
 					break;
 				} else {
@@ -49,7 +61,7 @@ public class Utility {
 			printCardSummary();
 
 		} else if (command.equalsIgnoreCase("Summary")) {
-			printCardSummary();
+			DisplaySummary.printCardSummary();
 
 		} else if (command.equalsIgnoreCase("CreateCard")) {
 			Person user = chooseUser(reader);
