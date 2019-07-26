@@ -17,7 +17,7 @@ public class PersonDB {
 		people.add(person);
 	}
 
-	public static Person getPeopleList(int input) {
+	public static Person getPerson(int input) {
 		return people.get(input);
 	}
 

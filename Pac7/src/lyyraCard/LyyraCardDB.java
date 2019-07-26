@@ -15,9 +15,10 @@ public class LyyraCardDB {
 	public static void createCard(Person person, String cardName) {
 		LyyraCard card = new LyyraCard(person, cardName, 0.0);
 		cards.add(card);
+		person.addToArray(card);
 	}
 	
-	public static LyyraCard getCardList (int input) {
+	public static LyyraCard getCard (int input) {
 		return cards.get(input);
 	}
 	
