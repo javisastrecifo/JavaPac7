@@ -24,6 +24,11 @@ public class MenuDB {
 	public static ArrayList<Dish> getDishList (){
 		return menuList;
 	}
+
+	public String getName() {
+		return name;
+	}
+	
 	
 	
 	

@@ -8,39 +8,24 @@ public class Utility {
 	// INICI
 	static LyyraCardDB carddb = new LyyraCardDB("Cards");
 	static PersonDB peopledb = new PersonDB("Users");
-//	static ArrayList<LyyraCard> comodin = new ArrayList <LyyraCard>();
+	static MenuDB lunchMenu = new MenuDB("Lunch Menu");
 
-	public static void createFirstSteps() {
-		PersonDB.createPerson("Jane");
-		PersonDB.createPerson("Andrew");
-		LyyraCardDB.createCard(PersonDB.getPerson(0), "Morning");
-		LyyraCardDB.createCard(PersonDB.getPerson(0), "Evening");
-		LyyraCardDB.createCard(PersonDB.getPerson(1), "Personal Card");
-		LyyraCardDB.getCard(0).loadMoney(39);
-		LyyraCardDB.getCard(1).loadMoney(33);
-		LyyraCardDB.getCard(2).loadMoney(28);
-		MenuDB.createDish("Caesar Salad", 1, 2.20);
-		MenuDB.createDish("Tomato soup", 1, 2.10);
-		MenuDB.createDish("Ramen noodle soup", 1, 4.30);
-		MenuDB.createDish("Fried eggs with chips", 2, 3.80);
-		MenuDB.createDish("Veggie Burger with chips", 2, 4.50);
-		MenuDB.createDish("Grilled vegetables with allioli", 2, 3.20);
-		MenuDB.createDish("Tiramisu", 3, 2.80);
-		MenuDB.createDish("Lemon icecream", 3, 2.80);
-		MenuDB.createDish("Watermelon", 3, 1.20);
-		MenuDB.createDish("Tap water", 4, 0.00);
-		MenuDB.createDish("Orange juice", 4, 1.60);
-		MenuDB.createDish("Pineapple juice", 4, 1.60);
-	}
+//	static ArrayList<LyyraCard> comodin = new ArrayList <LyyraCard>();
 
 	// OPTIONS
 
 	public static void returnAction(Scanner reader, String command) {
-		if (command.equalsIgnoreCase("Pay")) {
+		if (command.equalsIgnoreCase("Menu")) {
+			PrintSummary.printMenu(lunchMenu);
+			
+		} else if (command.equalsIgnoreCase("BuyMenu")) {
+			System.out.println("\nFirst, choose your lunch:\n");
+			double menuPrice = ChooseDishes.chooseDishes(reader, lunchMenu);
+			System.out.println("\nYour meal will cost " + menuPrice + ".\n");
 			Person user = chooseUser(reader);
 			LyyraCard target = chooseCard(user, reader);
 			while (true) {
-				double menuPrice = 2.5;
+//				 menuPrice = 2.5;
 				if (target.enoughMoney(menuPrice)) {
 					target.payMoney(menuPrice);
 					System.out.println("Operation completed.");
@@ -50,7 +35,7 @@ public class Utility {
 					System.out.println("Please, insert a new amount.\n");
 				}
 			}
-			printCardSummary();
+			PrintSummary.printCardSummary();
 
 		} else if (command.equalsIgnoreCase("Load")) {
 			Person user = chooseUser(reader);
@@ -58,23 +43,23 @@ public class Utility {
 			double amount = askDouble("How much would you like to load? ", reader);
 			target.loadMoney(amount);
 			System.out.println("Operation completed.");
-			printCardSummary();
+			PrintSummary.printCardSummary();
 
-		} else if (command.equalsIgnoreCase("Summary")) {
-			DisplaySummary.printCardSummary();
+		} else if (command.equalsIgnoreCase("CardSummary")) {
+			PrintSummary.printCardSummary();
 
 		} else if (command.equalsIgnoreCase("CreateCard")) {
 			Person user = chooseUser(reader);
 			String cardName = askString("Insert card name: ", reader);
 			LyyraCardDB.createCard(user, cardName);
 			System.out.println("\nCard created!\n");
-			printCardSummary();
+			PrintSummary.printCardSummary();
 
 		} else if (command.equalsIgnoreCase("CreateUser")) {
 			String userName = askString("Insert user name: ", reader);
 			PersonDB.createPerson(userName);
 			System.out.println("\nUser created!");
-			printUserList();
+			PrintSummary.printUserList();
 
 		} else {
 			System.out.println("Unidentified command.");
@@ -99,7 +84,7 @@ public class Utility {
 
 	public static int askUser(String question, Scanner reader) {
 		System.out.print(question);
-		printUserList();
+		PrintSummary.printUserList();
 		int user = Integer.parseInt(reader.nextLine());
 		return user - 1;
 	}
@@ -112,7 +97,7 @@ public class Utility {
 
 	public static int askCard(String question, Person user, Scanner reader) {
 		System.out.print(question);
-		printUserCards (user);
+		PrintSummary.printUserCards(user);
 		int card = Integer.parseInt(reader.nextLine());
 		return card - 1;
 	}
@@ -127,43 +112,5 @@ public class Utility {
 		System.out.print(question);
 		double answer = Double.parseDouble(reader.nextLine());
 		return answer;
-	}
-
-	// MENU & SUMMARY
-
-	public static void printMenu() {
-		System.out.println("LYYRACARD COMMANDS");
-		System.out.println("Pay, Load, Summary, CreateCard, CreateUser, End");
-		System.out.println("Command:");
-	}
-
-	public static void printCardList() {
-		System.out.println(carddb.getDBname() + " List");
-		for (int i = 0; i < carddb.cardList().size(); i++) {
-			System.out.println((i + 1) + "- " + carddb.getCard(i));
-		}
-	}
-
-	public static void printUserCards(Person user) {
-		System.out.println("\n" + user.getName() + "'s Card List");
-		for (int i = 0; i < user.getUserCard().size(); i++) {
-			System.out.println((i + 1) + "- " + user.getLyyra(i));
-		}
-	}
-
-	public static void printCardSummary() {
-		System.out.println(carddb.getDBname() + " List");
-		for (LyyraCard card : carddb.cardList()) {
-			System.out.println(card);
-		}
-		System.out.println();
-	}
-
-	public static void printUserList() {
-		System.out.println("\n" + peopledb.getDBname() + " List");
-		for (int i = 0; i < peopledb.peopleList().size(); i++) {
-			System.out.println((i + 1) + "- " + peopledb.getPerson(i));
-		}
-		System.out.println();
 	}
 }

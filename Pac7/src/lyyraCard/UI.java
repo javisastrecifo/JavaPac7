@@ -6,10 +6,10 @@ public class UI {
 
 	public static void start () {
 		Scanner reader = new Scanner (System.in);
-		Utility.createFirstSteps();
+		CreateAtStart.createFirstSteps();
 		
 		while (true) {
-			Utility.printMenu();
+			PrintSummary.optionsSummary();
 			String command = reader.nextLine();
 			if (Utility.finishProgram(command)) {
 				break;
