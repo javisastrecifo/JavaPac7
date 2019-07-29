@@ -22,17 +22,17 @@ public class Utility {
 			System.out.println("\nFirst, choose your lunch:\n");
 			double menuPrice = ChooseDishes.chooseDishes(reader, lunchMenu);
 			System.out.println("\nYour meal will cost " + menuPrice + ".\n");
-			Person user = chooseUser(reader);
-			LyyraCard target = chooseCard(user, reader);
+
 			while (true) {
-//				 menuPrice = 2.5;
+				Person user = chooseUser(reader);
+				LyyraCard target = chooseCard(user, reader);
 				if (target.enoughMoney(menuPrice)) {
 					target.payMoney(menuPrice);
 					System.out.println("Operation completed.\n");
 					break;
 				} else {
 					System.out.println("There is not enough money in this card.");
-					System.out.println("Please, insert a new amount.\n");
+					System.out.println("Please, select a new card.\n");
 				}
 			}
 			PrintSummary.printCardSummary();
@@ -75,11 +75,11 @@ public class Utility {
 		}
 	}
 
-	// ASKING METHODS
+	// ASKING DATA
 
 	public static Person chooseUser(Scanner reader) {
 		int user = askUser("Select the user from the list: ", reader);
-		return PersonDB.getPerson(user);
+		return peopledb.getPerson(user);
 	}
 
 	public static int askUser(String question, Scanner reader) {
@@ -90,7 +90,8 @@ public class Utility {
 	}
 
 	public static LyyraCard chooseCard(Person user, Scanner reader) {
-		LyyraCard card = LyyraCardDB.getCard(askCard("To operate, select the card from the list: \n", user, reader));
+		int cardNumber = askCard("To operate, select the card from the list: \n", user, reader);
+		LyyraCard card = user.getUserCard().get(cardNumber);
 		System.out.println("You have chosen the account: \n" + card.toString() + "\n");
 		return card;
 	}
@@ -99,6 +100,7 @@ public class Utility {
 		System.out.print(question);
 		PrintSummary.printUserCards(user);
 		int card = Integer.parseInt(reader.nextLine());
+		System.out.print(card);
 		return card - 1;
 	}
 

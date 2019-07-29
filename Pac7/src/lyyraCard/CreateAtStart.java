@@ -6,12 +6,17 @@ public class CreateAtStart {
 	public static void createFirstSteps() {
 		Utility.peopledb.createPerson("Jane");
 		Utility.peopledb.createPerson("Andrew");
-		Utility.carddb.createCard(PersonDB.getPerson(0), "Morning");
-		Utility.carddb.createCard(PersonDB.getPerson(0), "Evening");
+		Utility.peopledb.createPerson("Valentine");
+		Utility.carddb.createCard(PersonDB.getPerson(0), "Morning Card");
+		Utility.carddb.createCard(PersonDB.getPerson(0), "Evening Card");
 		Utility.carddb.createCard(PersonDB.getPerson(1), "Personal Card");
+		Utility.carddb.createCard(PersonDB.getPerson(2), "Lunch Card");
+		Utility.carddb.createCard(PersonDB.getPerson(2), "Breakfast Card");
 		Utility.carddb.getCard(0).loadMoney(39);
 		Utility.carddb.getCard(1).loadMoney(33);
 		Utility.carddb.getCard(2).loadMoney(28);
+		Utility.carddb.getCard(3).loadMoney(21);
+		Utility.carddb.getCard(4).loadMoney(11);
 		Utility.lunchMenu.createDish("Caesar Salad", 1, 2.20);
 		Utility.lunchMenu.createDish("Tomato soup", 1, 2.10);
 		Utility.lunchMenu.createDish("Ramen noodle soup", 1, 4.30);
