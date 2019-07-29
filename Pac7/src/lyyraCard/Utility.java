@@ -28,7 +28,7 @@ public class Utility {
 //				 menuPrice = 2.5;
 				if (target.enoughMoney(menuPrice)) {
 					target.payMoney(menuPrice);
-					System.out.println("Operation completed.");
+					System.out.println("Operation completed.\n");
 					break;
 				} else {
 					System.out.println("There is not enough money in this card.");
@@ -42,7 +42,7 @@ public class Utility {
 			LyyraCard target = chooseCard(user, reader);
 			double amount = askDouble("How much would you like to load? ", reader);
 			target.loadMoney(amount);
-			System.out.println("Operation completed.");
+			System.out.println("Operation completed.\n");
 			PrintSummary.printCardSummary();
 
 		} else if (command.equalsIgnoreCase("CardSummary")) {
